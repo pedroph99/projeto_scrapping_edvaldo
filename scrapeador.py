@@ -1,12 +1,14 @@
-from seleniumwire import webdriver
-import selenium
 import os
+import time
+import selenium
+
+from seleniumwire import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-chrome_options = webdriver.ChromeOptions()
-import time
+
 #chrome_options.add_argument('--headless')
+chrome_options = webdriver.ChromeOptions()
 
 path = './chromedriver'
 driver = webdriver.Chrome(path)
