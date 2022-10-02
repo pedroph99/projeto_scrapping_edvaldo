@@ -1,12 +1,19 @@
-from seleniumwire import webdriver
-import selenium
 import os
+import time
+import selenium
+
+from seleniumwire import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+<<<<<<< HEAD
 import undetected_chromedriver.v2 as uc
 import time
+=======
+
+>>>>>>> 4e82173e6249f1c7e0c23410fa90749dcca2674c
 #chrome_options.add_argument('--headless')
+chrome_options = webdriver.ChromeOptions()
 
 if __name__ == '__main__':
     
