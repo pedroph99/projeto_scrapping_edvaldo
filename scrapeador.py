@@ -32,7 +32,6 @@ def scrapea(cnpj):
     WebDriverWait(driver, delay*4).until(EC.presence_of_all_elements_located((By.CLASS_NAME, 'spanValorVerde')))
     optante = driver.find_elements(by=By.CLASS_NAME, value='spanValorVerde')
 
-
     return optante[2].text
 
 def ler_excell(file, cnpj):
@@ -79,6 +78,7 @@ def ler_excell(file, cnpj):
 def escreve_excell(file, last_value, cnpj):
     planilha = openpyxl.load_workbook(file)
     folha = planilha.active
+    print(last_value)
     folha[last_value] = scrapea(cnpj)
     planilha.save('empresas.xlsx')
     
@@ -98,7 +98,7 @@ def escreve_simples_nacional(file):
 def pega_cnpjs(file):
 
 
-    wb= openpyxl.load_workbook( file)
+    wb= openpyxl.load_workbook(file)
 
     listacnpj=wb.sheetnames
 
@@ -253,7 +253,14 @@ def corrige_erros(file):
     print(pega_cnpjs_com_erros(file))
     coordenadas = lista_erros(file)
     for x in coordenadas:
-        print(folha.cell(row=x[0], column=x[1]-1).value)
+        print(x)
+        cnpj_erro = folha.cell(row=x[0], column=x[1]-1).value
+        print(cnpj_erro)
+        print(pega_cnpjs_com_erros(file))
+        planilha.close()
+        escreve_excell(file, '%s%s'%(get_column_letter(x[1]), x[0]), cnpj_erro)
+
+
 
 
     
@@ -263,14 +270,14 @@ if __name__ == '__main__':
    # for x in pega_cnpjs('empresas.xlsx'):
    #     ler_excell('empresas.xlsx', testa_cnpj(x))
    
-   for x in pega_ultimo_preenchido('empresas.xlsx'):
-    time.sleep(2)
-    try:
-        ler_excell('empresas.xlsx', testa_cnpj(x))
-    except:
-        preenche_erro('empresas.xlsx')
-   #lista_erros('empresas.xlsx')
-   #corrige_erros('empresas.xlsx')
+   #for x in pega_ultimo_preenchido('empresas.xlsx'):
+   # time.sleep(2)
+   # try:
+   #     ler_excell('empresas.xlsx', testa_cnpj(x))
+   # except:
+   #     preenche_erro('empresas.xlsx')
+   lista_erros('empresas.xlsx')
+   corrige_erros('empresas.xlsx')
 
 
     
